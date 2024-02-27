@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:51:29 by maymeric          #+#    #+#             */
-/*   Updated: 2024/02/22 15:26:58 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:34:29 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 
 void gestionar(t_format *form)
 {
-	char c;
+	char	c;
+	char	*s;
 
 	c = form->specifier;
+	s = form->s + form->len + 2;
 	if (c == 'c')
 	{
 		ft_printchar(va_arg(form->ap, int));
@@ -35,12 +37,20 @@ void gestionar(t_format *form)
 	}
 	else if (c == 'i' || c == 'u')
 		ft_printdec(form);
-/*	else if (c == 'x' || c == 'X')
-		funcion_printhex(va_arg(ap, char *));*/
+	else if (c == 'x')
+		ft_putnbr_base(va_arg(form->ap, unsigned int), "0123456789abcdef");
+	else if (c == 'X')
+		ft_putnbr_base(va_arg(form->ap, unsigned int), "0123456789ABCDEF");
 	else if (c == '%')
 	{
 		ft_printchar('%');
 		form->len++;
+	}
+	while(*s != '\0')
+	{
+		ft_printchar(*s);
+		form->len++;	
+		s++;
 	}
 }
 
@@ -58,8 +68,6 @@ void	ini_data(t_format *formato)
 	}
 	s++;
 	formato->specifier = *s;
-//	printf("Specifier = %c\n", formato->specifier);
-//	printf("ap = %c\n", (va_arg(formato->ap, int)));
 }
 
 int	ft_printf(char const *fmt, ...)
@@ -76,6 +84,9 @@ int	ft_printf(char const *fmt, ...)
 
 int	main()
 {
-	char a[] = "HOLA";
-	printf("\nlen = %d\n", ft_printf("Holii %u", -3561));
+	char a[] = "H1234bcdef";
+	char b[] = "abcdefghij";
+	char c[] = "0123456789";
+	ft_printf("Hexa: %x", 0x4582);
+//	printf("\nlen = %d\n", ft_printf("Holii :%X %s %u.", a, b, c));
 }	
