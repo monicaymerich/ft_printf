@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:03:55 by maymeric          #+#    #+#             */
-/*   Updated: 2024/02/27 13:34:32 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:16:04 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_printnbr(int n)
 {
 	char num;
 
+	num = n;
 	if (n < 10)
 		num = n + '0';
 	ft_printchar(num);
@@ -42,7 +43,7 @@ void	ft_printnbr(int n)
 void	ft_putnbr_base(unsigned int nbr, char *base)
 {
 	char	aux;
-	int		base_len;
+	unsigned int		base_len;
 
 	base_len = ft_strlen(base);
 	if(nbr < base_len)

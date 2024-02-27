@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:51:29 by maymeric          #+#    #+#             */
-/*   Updated: 2024/02/27 13:34:29 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:13:43 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,5 @@ int	main()
 	char b[] = "abcdefghij";
 	char c[] = "0123456789";
 	ft_printf("Hexa: %x", 0x4582);
-//	printf("\nlen = %d\n", ft_printf("Holii :%X %s %u.", a, b, c));
+	printf("\nlen = %d\n", ft_printf("Holii :%X %s %u.", a, b, c));
 }	
