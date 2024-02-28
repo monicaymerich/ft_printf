@@ -1,3 +1,5 @@
 .DS_Store
 a.out
 *.swp
+*.gch
+main.c
