@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:03:55 by maymeric          #+#    #+#             */
-/*   Updated: 2024/02/28 19:20:30 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/02/28 19:44:28 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	ft_printchar(int c, t_format *form)
 {
-	if (write (1, &c, 1) != -1)
+//	if ( ... != -1)
+		write (1, &c, 1);
 		form->len++;
-	else
-		form->len = -1;
+//	else
+//		form->len = -1;
 }
 
 void	ft_printstr(t_format	*form)
@@ -27,32 +28,23 @@ void	ft_printstr(t_format	*form)
 	aux = va_arg(form->ap, char *);
 	while(*aux != '\0')
 	{
-		ft_printchar(*aux);
+		ft_printchar(*aux, form);
 	}
 }
 
-void	ft_printnbr(int n)
-{
-	char num;
-
-	if (n < 10)
-		num = n + '0';
-	ft_printchar(num);
-}
-
-void	ft_putnbr_base(unsigned int nbr, char *base)
+void	ft_putnbr_base(t_format *form, unsigned int nbr, char *base)
 {
 	char	aux;
 	int		base_len;
 
 	base_len = ft_strlen(base);
 	if(nbr < base_len)
-		ft_printchar(base[nbr]);
+		ft_printchar(base[nbr], form);
 	else
 	{
 		aux = base[nbr % base_len];
-		ft_putnbr_base(nbr / base_len, base);
-		ft_printchar(aux);
+		ft_putnbr_base(form, nbr / base_len, base);
+		ft_printchar(aux, form);
 	}
 }
 /*
@@ -94,7 +86,7 @@ void	ft_printdec(t_format *form)
 	num = ft_itoa(va_arg(form->ap, int));
 	while(*num != '\0')
 	{
-		ft_printchar(*num);
+		ft_printchar(*num, form);
 		form->len++;
 		num++;
 	}
