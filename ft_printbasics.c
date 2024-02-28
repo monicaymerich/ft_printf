@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:03:55 by maymeric          #+#    #+#             */
-/*   Updated: 2024/02/27 15:16:04 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:06:49 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,26 @@ void	ft_printnbr(int n)
 	ft_printchar(num);
 }
 
-void	ft_putnbr_base(unsigned int nbr, char *base)
+void	ft_putnbr_base(t_format *form, char *base)
 {
 	char	aux;
 	unsigned int		base_len;
+	unsigned int	nbr;
+
+	nbr = va_arg(form->ap, unsigned int);
 
 	base_len = ft_strlen(base);
 	if(nbr < base_len)
+	{
 		ft_printchar(base[nbr]);
+		form->len++;
+	}
 	else
 	{
 		aux = base[nbr % base_len];
 		ft_putnbr_base(nbr / base_len, base);
 		ft_printchar(aux);
+		form->len++;
 	}
 }
 /*

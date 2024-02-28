@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:51:29 by maymeric          #+#    #+#             */
-/*   Updated: 2024/02/27 15:13:43 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:06:11 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void gestionar(t_format *form)
 	else if (c == 'i' || c == 'u')
 		ft_printdec(form);
 	else if (c == 'x')
-		ft_putnbr_base(va_arg(form->ap, unsigned int), "0123456789abcdef");
+		ft_putnbr_base(form, "0123456789abcdef");
 	else if (c == 'X')
-		ft_putnbr_base(va_arg(form->ap, unsigned int), "0123456789ABCDEF");
+		ft_putnbr_base(form, "0123456789ABCDEF");
 	else if (c == '%')
 	{
 		ft_printchar('%');
@@ -81,7 +81,7 @@ int	ft_printf(char const *fmt, ...)
 	va_end(form.ap);
 	return form.len;
 }
-
+/*
 int	main()
 {
 	char a[] = "H1234bcdef";
@@ -89,4 +89,5 @@ int	main()
 	char c[] = "0123456789";
 	ft_printf("Hexa: %x", 0x4582);
 	printf("\nlen = %d\n", ft_printf("Holii :%X %s %u.", a, b, c));
-}	
+}
+*/
