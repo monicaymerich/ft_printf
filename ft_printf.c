@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:51:29 by maymeric          #+#    #+#             */
-/*   Updated: 2024/02/28 19:19:46 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/02/28 19:41:52 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,35 +17,22 @@
 void gestionar(t_format *form)
 {
 	char	c;
-	char	*s;
 
 	c = form->specifier;
-	s = form->s + form->len + 2;
-	if (c == 'c')
-	{
-		ft_printchar(va_arg(form->ap, int));
-		form->len++;
-	}
+	if (c == 'c' || c == 'd')
+		ft_printchar(va_arg(form->ap, int), form);
 	else if (c == 's')
 		ft_printstr(form);
 /*	else if (c == 'p')
 		ft_printptr(form);*/
-	else if (c == 'd')
-	{
-		ft_printnbr(va_arg(form->ap, int));
-		form->len++;
-	}
 	else if (c == 'i' || c == 'u')
 		ft_printdec(form);
 	else if (c == 'x')
-		ft_putnbr_base(va_arg(form->ap, unsigned int), "0123456789abcdef");
+		ft_putnbr_base(form, va_arg(form->ap, unsigned int), "0123456789abcdef");
 	else if (c == 'X')
-		ft_putnbr_base(va_arg(form->ap, unsigned int), "0123456789ABCDEF");
+		ft_putnbr_base(form, va_arg(form->ap, unsigned int), "0123456789ABCDEF");
 	else if (c == '%')
-	{
-		ft_printchar('%');
-		form->len++;
-	}
+		ft_printchar('%', form);
 }
 
 void	ini_data(t_format *formato)
@@ -60,13 +47,13 @@ void	ini_data(t_format *formato)
 		{
 			formato->s++;
 			formato->specifier = *formato->s;
-			gestionar(&formato)
+			gestionar(formato);
 		}
 		else
 			ft_printchar(*formato->s, formato);
 		formato->s++;
 	if (formato->len == -1)
-		return formato->len;
+		return;
 	}
 }
 
