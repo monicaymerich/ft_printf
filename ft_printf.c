@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:51:29 by maymeric          #+#    #+#             */
-/*   Updated: 2024/02/28 14:06:11 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/02/28 19:19:46 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,13 @@ void gestionar(t_format *form)
 	else if (c == 'i' || c == 'u')
 		ft_printdec(form);
 	else if (c == 'x')
-		ft_putnbr_base(form, "0123456789abcdef");
+		ft_putnbr_base(va_arg(form->ap, unsigned int), "0123456789abcdef");
 	else if (c == 'X')
-		ft_putnbr_base(form, "0123456789ABCDEF");
+		ft_putnbr_base(va_arg(form->ap, unsigned int), "0123456789ABCDEF");
 	else if (c == '%')
 	{
 		ft_printchar('%');
 		form->len++;
-	}
-	while(*s != '\0')
-	{
-		ft_printchar(*s);
-		form->len++;	
-		s++;
 	}
 }
 
@@ -60,14 +54,20 @@ void	ini_data(t_format *formato)
 
 	s = formato->s;
 	formato->len = 0;
-	while (*s != '%')
+	while (formato->s)
 	{
-		ft_printchar(*s);
-		formato->len++;	
-		s++;
+		if (*formato->s == '%')
+		{
+			formato->s++;
+			formato->specifier = *formato->s;
+			gestionar(&formato)
+		}
+		else
+			ft_printchar(*formato->s, formato);
+		formato->s++;
+	if (formato->len == -1)
+		return formato->len;
 	}
-	s++;
-	formato->specifier = *s;
 }
 
 int	ft_printf(char const *fmt, ...)
@@ -77,17 +77,6 @@ int	ft_printf(char const *fmt, ...)
 	va_start(form.ap, fmt);
 	form.s = (char *)fmt;
 	ini_data(&form);
-	gestionar(&form);
 	va_end(form.ap);
 	return form.len;
 }
-/*
-int	main()
-{
-	char a[] = "H1234bcdef";
-	char b[] = "abcdefghij";
-	char c[] = "0123456789";
-	ft_printf("Hexa: %x", 0x4582);
-	printf("\nlen = %d\n", ft_printf("Holii :%X %s %u.", a, b, c));
-}
-*/
