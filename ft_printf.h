@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:35:26 by maymeric          #+#    #+#             */
-/*   Updated: 2024/02/28 16:40:41 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/02/28 19:39:38 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ typedef struct s_format
 }t_format;
 
 int		ft_printf(char const *prnt, ...);
-void	ft_printchar(int c);
+void	ft_printchar(int c, t_format *form);
 void	ft_printstr(t_format *form);
-void	ft_printnbr(int n);
 void	ft_printdec(t_format *form);
-void	ft_putnbr_base(unsigned int nbr, char *base);
+void	ft_putnbr_base(t_format *form, unsigned int nbr, char *base);
 /*void	ft_printptr(t_format *form);*/
 
 #endif
