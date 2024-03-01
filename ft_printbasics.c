@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:03:55 by maymeric          #+#    #+#             */
-/*   Updated: 2024/03/01 17:11:24 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:29:10 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void	ft_printchar(int c, int *len)
 
 void	ft_printstr(char *str, int *len)
 {
-	if (*str == NULL)
+	if (str == NULL)
 	{
 		ft_printstr("(null)", len);
-			return ;
+		return ;
 	}
-	while(*str != '\0')
+	while(*str)
 	{
 		ft_printchar(*str, len);
 		str++;
@@ -45,18 +45,26 @@ void	ft_printdgt(int dig, int *len)
 
 void	ft_printdec(int	number, int *len)
 {
-	char *num;
+	char	*num;
+	int		i;
 
+	i = 0;
 	num = ft_itoa(number);
-	while(*num != '\0')
+	while(num[i] != '\0')
 	{
-		ft_printchar(*num, len);
-		num++;
+		ft_printchar(num[i], len);
+		i++;
 	}
+	free(num);
 }
 
 void	ft_printunsigned(unsigned int dig, int *len)
 {
+	if (dig == 0)
+	{
+		ft_printchar('0', len);
+		return ;
+	}
 	if(dig >= 10)
 	{
 		ft_printunsigned(dig / 10, len);

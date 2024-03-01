@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:51:29 by maymeric          #+#    #+#             */
-/*   Updated: 2024/03/01 17:11:26 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:23:39 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void gestionar(va_list ap, int *len, char sp)
 	else if (sp == 's')
 		ft_printstr(va_arg(ap, char *), len);
 	else if (sp == 'd')
-		ft_printdgt(va_arg(ap, int), len);
+		ft_printdec(va_arg(ap, int), len);
 	else if (sp == 'p')
 	{
 		ft_printstr("0x", len);
@@ -41,7 +41,6 @@ void gestionar(va_list ap, int *len, char sp)
 
 void	ft_start(char const *str, va_list ap, int *len, int *pos)
 {
-	int 	i;
 	char	specifier;
 	
 	while (str[*pos])
@@ -72,13 +71,6 @@ int	ft_printf(char const *fmt, ...)
 	va_start(ap, fmt);
 	str = fmt;
 	ft_start(str, ap, &len, &pos);
-	
-	/*t_format form;
-
-	va_start(form.ap, fmt);
-	form.s = (char *)fmt;
-	ini_data(&form);*/
-	
 	va_end(ap);
 	return len;
 }

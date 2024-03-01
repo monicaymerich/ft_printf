@@ -6,7 +6,7 @@
 #    By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/27 12:51:06 by maymeric          #+#    #+#              #
-#    Updated: 2024/02/27 15:13:00 by maymeric         ###   ########.fr        #
+#    Updated: 2024/03/01 17:19:52 by maymeric         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libftprintf.a
 
 HEADER = printf.h
 
-SRC = ft_printf.c ft_printbasics.c 
+SRC = ft_printf.c ft_printbasics.c ft_printhexa.c 
 
 OBJS = $(SRC:.c=.o)
 
