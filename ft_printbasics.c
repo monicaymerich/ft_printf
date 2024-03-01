@@ -6,88 +6,60 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:03:55 by maymeric          #+#    #+#             */
-/*   Updated: 2024/02/28 19:44:28 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:11:24 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_printchar(int c, t_format *form)
+void	ft_printchar(int c, int *len)
 {
-//	if ( ... != -1)
-		write (1, &c, 1);
-		form->len++;
-//	else
-//		form->len = -1;
+	int	flag;
+
+	flag = 0;
+	
+	flag = 	write (1, &c, 1);
+	*len += 1;
+	if (flag == -1)
+		*len = -1;
 }
 
-void	ft_printstr(t_format	*form)
+void	ft_printstr(char *str, int *len)
 {
-	char *aux;
-
-	aux = va_arg(form->ap, char *);
-	while(*aux != '\0')
+	if (*str == NULL)
 	{
-		ft_printchar(*aux, form);
+		ft_printstr("(null)", len);
+			return ;
+	}
+	while(*str != '\0')
+	{
+		ft_printchar(*str, len);
+		str++;
 	}
 }
 
-void	ft_putnbr_base(t_format *form, unsigned int nbr, char *base)
+void	ft_printdgt(int dig, int *len)
 {
-	char	aux;
-	int		base_len;
-
-	base_len = ft_strlen(base);
-	if(nbr < base_len)
-		ft_printchar(base[nbr], form);
-	else
-	{
-		aux = base[nbr % base_len];
-		ft_putnbr_base(form, nbr / base_len, base);
-		ft_printchar(aux, form);
-	}
-}
-/*
-void	ft_printhex_may(t_format *form)
-{
-	char	*aux;
-
-	aux = va_arg(form->ap, char *);
-	while (*aux != '\0')
-	{
-		if(*aux <= '0' && *aux >= '9')
-		{
-			ft_printnbr(*aux);
-			form->len++;
-		}
-		else
-		{
-			if (*aux >= 'a' && *aux <= 'z')
-				*aux = *aux - 32; 
-			ft_printchar(*aux);
-			form->len++;
-		}
-		aux++;
-	}
-
+	ft_printchar(dig + '0', len);
 }
 
-void	ft_printptr(t_format *form)
-{
-	write(1, &"0x", 2);
-	form->len = form->len + 2;
-	ft_printhex_min(form);
-}
-*/
-void	ft_printdec(t_format *form)
+void	ft_printdec(int	number, int *len)
 {
 	char *num;
 
-	num = ft_itoa(va_arg(form->ap, int));
+	num = ft_itoa(number);
 	while(*num != '\0')
 	{
-		ft_printchar(*num, form);
-		form->len++;
+		ft_printchar(*num, len);
 		num++;
 	}
+}
+
+void	ft_printunsigned(unsigned int dig, int *len)
+{
+	if(dig >= 10)
+	{
+		ft_printunsigned(dig / 10, len);
+	}
+	ft_printdgt((dig % 10), len);
 }
