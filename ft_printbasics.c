@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 12:03:55 by maymeric          #+#    #+#             */
-/*   Updated: 2024/03/03 10:32:16 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/03/03 12:02:03 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 void	ft_printchar(int c, int *len)
 {
-	int	flag;
-
-	flag = 0;
-	flag = write (1, &c, 1);
-	*len += 1;
-	if (flag == -1)
+	if (write (1, &c, 1) != -1)
+		*len += 1;
+	else
 		*len = -1;
 }
 
@@ -33,6 +30,8 @@ void	ft_printstr(char *str, int *len)
 	while (*str)
 	{
 		ft_printchar(*str, len);
+		if (*len == -1)
+			return ;
 		str++;
 	}
 }
@@ -42,19 +41,33 @@ void	ft_printdgt(int dig, int *len)
 	ft_printchar(dig + '0', len);
 }
 
-void	ft_printdec(int number, int *len)
+void	ft_printdec(int n, int *len)
 {
-	char	*num;
-	int		i;
-
-	i = 0;
-	num = ft_itoa(number);
-	while (num[i] != '\0')
+	if (n == -2147483648)
+		ft_printstr("-2147483648", len);
+	else
 	{
-		ft_printchar(num[i], len);
-		i++;
+		if (n < 0)
+		{
+			ft_printchar('-', len);
+			if (*len == -1)
+				return ;
+			n = -n;
+		}
+		if (n >= 10)
+		{
+			ft_printdec((n / 10), len);
+			if (*len == -1)
+				return ;
+			ft_printchar((n % 10) + '0', len);
+			if (*len == -1)
+				return ;
+		}
+		else
+		{
+			ft_printchar(n + '0', len);
+		}
 	}
-	free(num);
 }
 
 void	ft_printunsigned(unsigned int dig, int *len)
@@ -67,6 +80,8 @@ void	ft_printunsigned(unsigned int dig, int *len)
 	if (dig >= 10)
 	{
 		ft_printunsigned(dig / 10, len);
+		if (*len == -1)
+			return ;
 	}
 	ft_printdgt((dig % 10), len);
 }

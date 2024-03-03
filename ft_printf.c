@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:51:29 by maymeric          #+#    #+#             */
-/*   Updated: 2024/03/03 10:06:01 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/03/03 11:52:24 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	gestionar(va_list ap, int *len, char sp)
 	else if (sp == 'p')
 	{
 		ft_printstr("0x", len);
-		ft_printptr(va_arg(ap, size_t), "0123456789abcdef", len);
+		if (*len == -1)
+			return ;
+		ft_printptr(va_arg(ap, unsigned long), "0123456789abcdef", len);
 	}
 	else if (sp == 'i')
 		ft_printdec(va_arg(ap, int), len);
