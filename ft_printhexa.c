@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 17:02:00 by maymeric          #+#    #+#             */
-/*   Updated: 2024/03/01 17:22:55 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/03/03 10:32:39 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_putnbr_base(unsigned int nbr, char *base, int *len)
 {
 	char	aux;
 
-	if(nbr < 16)
+	if (nbr < 16)
 		ft_printchar(base[nbr], len);
 	else
 	{
@@ -30,7 +30,7 @@ void	ft_printptr(size_t nbr, char *base, int *len)
 {
 	char	aux;
 
-	if(nbr < 16)
+	if (nbr < 16)
 		ft_printchar(base[nbr], len);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: maymeric <maymeric@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:51:29 by maymeric          #+#    #+#             */
-/*   Updated: 2024/03/01 17:23:39 by maymeric         ###   ########.fr       */
+/*   Updated: 2024/03/03 10:06:01 by maymeric         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-void gestionar(va_list ap, int *len, char sp)
+void	gestionar(va_list ap, int *len, char sp)
 {
 	if (sp == 'c')
 		ft_printchar(va_arg(ap, int), len);
@@ -42,7 +42,7 @@ void gestionar(va_list ap, int *len, char sp)
 void	ft_start(char const *str, va_list ap, int *len, int *pos)
 {
 	char	specifier;
-	
+
 	while (str[*pos])
 	{
 		if (str[*pos] == '%')
@@ -54,8 +54,8 @@ void	ft_start(char const *str, va_list ap, int *len, int *pos)
 		else
 			ft_printchar(str[*pos], len);
 		*pos += 1;
-	if (*len == -1)
-		return;
+		if (*len == -1)
+			return ;
 	}
 }
 
@@ -72,5 +72,5 @@ int	ft_printf(char const *fmt, ...)
 	str = fmt;
 	ft_start(str, ap, &len, &pos);
 	va_end(ap);
-	return len;
+	return (len);
 }
